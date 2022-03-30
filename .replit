@@ -1,96 +1,33 @@
+19CBE132
+/* Algorithm
+
+01. Iterate through all elements in the list.
+02. Compare the current element to its predecessor.
+03. If the current element is smaller (greater) than its predecessor, compare it to the elements before.  
+04. Move the greater (smaller) elements one position up to make space for the swapped element.
+*/
+
 # include <stdio.h>
-# include <stdlib.h>
+int main(void) {
+  int input[10] = {10, 9, 8, 7, 6, 5, 1, 2, 3, 4};
+  // Elements are hard coded
 
-int choice;
-
-struct singly_node{
-  int data;
-   struct singly_node *next;
-};
-
-struct doubly_node{
-  int data;
-   struct doubly_node *next, *prev;
-};
-
-void menu(void) {
-  printf("\n1. Singly Linked List \n2. Doubly Linked List \n3. Circular Linked List \n4. Exit");
-  printf("\nChoose an option: ");
-  scanf("%d", &choice);
-}
-
-void singly_linked_list(){
-  printf("\n*** Singly Linked List ***");
-  int choice = 1;
-  struct singly_node *head = NULL, *new_node, *temp;
-  while (choice == 1) {
-    new_node = (struct singly_node *)malloc(sizeof(struct singly_node));
-    printf("\nEnter node data: ");
-    scanf("%d", &new_node->data);
-    new_node->next = NULL;
-    if (head == NULL)
-      head = temp = new_node;
-    else {
-      temp->next = new_node;
-      temp = new_node;
+  for (int i=1; i<10; i++) {
+    int element = input[i];
+    int j = i-1;
+    while ( j >= 0 && input[j] > element) {
+      input[j+1] = input[j];
+      j--;
     }
-    printf("\nTo insert a new node press 1 else any other integer: ");
-    scanf("%d", &choice);
-  } 
-
-  printf("\nThe elements in the Singly Linked list are...");
-  temp = head;
-  while (temp != NULL) {
-    printf("\n%d", temp->data);
-    temp = temp->next;
+    input[j+1] = element;
   }
+
+  printf("\nElements after sorting are ...\n");
+  for(int i=0; i<10; i++)
+    printf("%d\t", input[i]);
+  return 0;  
 }
 
-void doubly_linked_list(){
-// Incomplete code
-  printf("\n*** Doubly Linked List ***");
-  int choice = 1;
-  struct doubly_node *head = NULL, *new_node, *temp;
-  while (choice == 1) {
-    new_node = (struct singly_node *)malloc(sizeof(struct singly_node));
-    printf("\nEnter node data: ");
-    scanf("%d", &new_node->data);
-    new_node->next = NULL;
-    if (head == NULL)
-      head = temp = new_node;
-    else {
-      temp->next = new_node;
-      temp = new_node;
-    }
-    printf("\nTo insert a new node press 1 else any other integer: ");
-    scanf("%d", &choice);
-  } 
+/* Observations and Output
 
-  printf("\nThe elements in the Singly Linked list are...");
-  temp = head;
-  while (temp != NULL) {
-    printf("\n%d", temp->data);
-    temp = temp->next;
-  }
-}
-
-void circular_linked_list(){
-  printf("\n*** Circular Linked List ***");
-}
-
-int main() {
-  while (1)  {
-    menu();
-    switch(choice) {
-      case 1: singly_linked_list();
-              break;
-      case 2: doubly_linked_list();
-              break;
-      case 3: circular_linked_list();
-              break;
-      case 4: return 0;
-      default: printf("\nInvalid Option");
-    }
-  }
-    
-}
+*/
