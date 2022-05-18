@@ -3,4 +3,3 @@
 
 [binarytree](binarytree.c)
 
-[pre order post order of binary tree](pre order_2.c)
