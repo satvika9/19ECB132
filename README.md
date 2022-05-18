@@ -3,5 +3,5 @@
 
 [binarytree](binarytree.c)
 
-[pre order_2](pre order_2.c)
+
 
