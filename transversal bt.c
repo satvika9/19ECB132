@@ -1,68 +1,112 @@
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
+// Cprogram to convert a Binary Tree to	Threaded Tree 
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdbool.h>
 
-struct node {
-    
-    int data;
-    struct node *left;
-    struct node *right;
-  
+// Structure of a node in threaded binary tree
+struct node
+{
+	int key;
+	struct node *left, *right;
+	// Used to indicate whether the right pointer
+	// is a normal right pointer or a pointer
+	// to inorder successor.
+	bool isThreaded;
 };
 
-struct node* insert( struct node* root, int data ) {
-        
-    if(root == NULL) {
-    
-        struct node* node = (struct node*)malloc(sizeof(struct node));
+// Converts tree with given root to threaded binary tree.
+// This function returns rightmost child of root.
+struct node *createThreaded(struct node *root) {
+	// Base cases : Tree is empty or has single node
+	if (root == NULL)
+		return NULL;
+	if (root->left == NULL && root->right == NULL)
+		return root;
 
-        node->data = data;
+	// Find predecessor if it exists
+	if (root->left != NULL)  {
+		// Find predecessor of root (Rightmost child in left subtree)
+		struct node* l = createThreaded(root->left);
 
-        node->left = NULL;
-        node->right = NULL;
-        return node;
-      
-    } else {
-      
-        struct node* cur;
-        
-        if(data <= root->data) {
-            cur = insert(root->left, data);
-            root->left = cur;
-        } else {
-            cur = insert(root->right, data);
-            root->right = cur;
-        }
-    
-        return root;
-    }
+		// Link a thread from predecessor to root.
+		l->right = root;
+		l->isThreaded = true;
+	}
+
+	// If current node is rightmost child
+	if (root->right == NULL)
+		return root;
+
+	// Recur for right subtree.
+	return createThreaded(root->right);
 }
 
-
-void preOrder( struct node *root) {
-if (root != NULL) {
-        printf("%d ", root->data);
-        preOrder(root->left);
-        preOrder(root->right);
-    }
+// A utility function to find leftmost node in a binary tree rooted with 'root'.
+// This function is used in inOrder()
+struct node *leftMost(struct node *root) {
+	while (root != NULL && root->left != NULL)
+		root = root->left;
+	return root;
 }
 
+// Function to do inorder traversal of a threadded binary tree
+void inOrder(struct node *root) {
+	if (root == NULL) return;
+	// Find the leftmost node in Binary Tree
+	struct node *cur = leftMost(root);
+	while (cur != NULL)	{
+		printf("%d ", cur->key);
 
-int main() {
-  
-    struct node* root = NULL;
-    
-    int t;
-    int data;
-
-    scanf("%d", &t);
-
-    while(t-- > 0) {
-        scanf("%d", &data);
-        root = insert(root, data);
-    }
-  
-    preOrder(root);
-    return 0;
+		// If this Node is a thread Node, then go to inorder successor
+		if (cur->isThreaded)
+			cur = cur->right;
+		else // Else go to the leftmost child in right subtree
+			cur = leftMost(cur->right);
+	}
 }
+
+// A utility function to create a new node
+struct node *newNode(int key) {
+	struct node *temp = (struct node *) malloc (sizeof (struct node));
+	temp->left = temp->right = NULL;
+	temp->key = key;
+	return temp;
+}
+
+int main()
+{
+	/*	 1
+			/ \
+		 2   3
+		/ \ / \
+	  4 5 6 7 */
+	struct node *root = (struct node * ) malloc(sizeof (struct node));
+  root->key = 1;
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->left->left = newNode(4);
+	root->left->right = newNode(5);
+	root->right->left = newNode(6);
+	root->right->right = newNode(7);
+
+	createThreaded(root);
+
+	printf("Inorder traversal of created threaded tree is\n");
+	inOrder(root);
+	return 0;
+}
+/*
+output:
+1. Singly Linked List 
+2. Doubly Linked List 
+3. Circular Linked List 
+4. Exit
+Choose an option: 1
+
+*** Singly Linked List ***
+Enter node data: 1
+
+To insert a new node press 1 else any other integer: 
+
+
+*/
