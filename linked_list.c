@@ -95,3 +95,17 @@ int main() {
   }
     
 }
+/*
+output:
+1. Singly Linked List 
+2. Doubly Linked List 
+3. Circular Linked List 
+4. Exit
+Choose an option: 1
+
+*** Singly Linked List ***
+Enter node data: 1
+
+To insert a new node press 1 else any other integer: 1
+
+*/
