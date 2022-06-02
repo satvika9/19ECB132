@@ -40,3 +40,7 @@ int main()
 	printf("height=%d",height(root));
 	return 0 ;
 }
+/*
+output:
+height=3
+*/
