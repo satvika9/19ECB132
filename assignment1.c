@@ -1,4 +1,4 @@
-19EB132
+
 # include<stdio.h>
 # define SIZE 10
 int main(void) {
@@ -10,5 +10,10 @@ int main(void) {
   for (int i=0; i<SIZE+1; i++) 
     printf("%d \t",a[i] );
 }
-
-// Static allocation of array will lead to run time errors while inserting new elements.  Alternatively we must use dynamic memory allocation - malloc()
+/*
+output:
+1   2   3   5   6   7   8   9   0   0 
+after inserting...
+*** stack smashing detected ***: <unknown> terminated
+Aborted (core dumped)
+*/
