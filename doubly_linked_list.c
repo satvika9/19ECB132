@@ -1,5 +1,3 @@
-19ECB132
-// Demo of Doubly Linked List in C
 # include <stdio.h>
 # include <stdlib.h>  // stdlib header file is used for malloc()
 
@@ -35,3 +33,10 @@ int main() {
   } // end of while
   
 } // end of main
+/*
+output:
+*** Doubly Linked List with 3 nodes***
+*** Traversing the elements in the Doubly Linked List***
+0
+1
+*/
