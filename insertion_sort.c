@@ -1,4 +1,3 @@
-19ECB132
 # include <stdio.h>
 int main(void) {
   int input[10] = {10, 9, 8, 7, 6, 5, 1, 2, 3, 4};
@@ -19,6 +18,8 @@ int main(void) {
     printf("%d\t", input[i]);
   return 0;  
 }
-
-/* Observations and Output
+/*
+output:
+Elements after sorting are ...
+1   2   3   4   5   6   7   8   9   10
 */
